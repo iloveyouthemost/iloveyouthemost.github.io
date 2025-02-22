@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We have been together</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            background-image: url('background.jpg');
+            background-repeat: repeat;
+            background-size: contain;
+            background-attachment: fixed;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            z-index: 10;
+            transition: opacity 1s ease-out;
+        }
+
+    
+        .container {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        #timer {
+            font-size: 3.5rem;
+            color: #007BFF;
+        }
+
+
+        #timer-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #love-text {
+            font-size: 1.5rem;
+            color: #a600cb;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay">Hey love</div>
+    <div class="container" id="timer-container">
+        <p>We have been together for</p>
+        <p id="timer">Loading...</p>
+        <p id="love-text">and I hope it will never change <3</p>
+    </div>
+
+    <script>
+        function calculateTimeElapsed() {
+            const targetTime = new Date("2024-11-03T21:00:00+02:00");
+            const currentTime = new Date();
+            const timeDifference = currentTime - targetTime;
+
+            const seconds = Math.floor(timeDifference / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+
+            const remainingSeconds = seconds % 60;
+            const remainingMinutes = minutes % 60;
+            const remainingHours = hours % 24;
+
+            document.getElementById("timer").textContent = `${days} days, ${remainingHours} hours, ${remainingMinutes} minutes, ${remainingSeconds} seconds`;
+        }
+
+        setInterval(calculateTimeElapsed, 1000);
+        calculateTimeElapsed();
+
+        document.body.addEventListener("click", function () {
+            const overlay = document.getElementById("overlay");
+            overlay.style.opacity = 0;
+            setTimeout(function () {
+                overlay.style.display = "none";
+                const timerContainer = document.getElementById("timer-container");
+                timerContainer.style.display = "block";
+                setTimeout(function() {
+                    timerContainer.style.opacity = 1;
+                }, 100);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
